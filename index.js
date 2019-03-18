@@ -38,7 +38,7 @@ function countDownHeader4() {
 function clickToChangeImage(e) {
   e.preventDefault();
   let image = document.querySelector('#animal-image');
-  let link = document.querySelector('#animal-toggle');
+  let link = getAnimalToggleLink();
   if (image.src == 'http://127.0.0.1:5500/cat.jpg') {
     image.src = 'puppy.jpeg';
     image.alt = 'A puppy picture';
@@ -132,10 +132,22 @@ function getNavLinks() {
   return document.getElementById('nav-links');
 }
 
+function getLoginLink() {
+  return document.querySelector('#login');
+}
+
+function getSignupLink() {
+  return document.querySelector('#signup');
+}
+
 function getLoggedInLinks() {
   return `
     <li><a href="#" id="logout">Logout</a></li>
   `
+}
+
+function getAnimalToggleLink() {
+  return document.querySelector('#animal-toggle');
 }
 
 function getLoggedOutLinks() {
@@ -187,9 +199,9 @@ window.addEventListener('load', (e) => {
   countDownHeader1();
 
   // change animal link
-  document.querySelector('#animal-toggle').addEventListener('click', clickToChangeImage);
+  getAnimalToggleLink().addEventListener('click', clickToChangeImage);
 
   // login / signup
-  document.querySelector('#login').addEventListener('click', createLoginForm);
-  document.querySelector('#signup').addEventListener('click', createSignupForm);
+  getLoginLink().addEventListener('click', createLoginForm);
+  getSignupLink().addEventListener('click', createSignupForm);
 })
