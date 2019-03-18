@@ -86,19 +86,19 @@ function logoutUser(e) {
 }
 
 function clearForm() {
-  // grab the form div and clear out it's inner HTML
+  // grab the form div and clear out it's inner HTML (do after createSignupForm)
 }
 
-function grabFormDiv() {
+function getFormDiv() {
   // return the #form-div node
 }
 
 function getErrorsDiv() {
-  // return the #errors node
+  // return the #errors node (do after createSignupForm)
 }
 
 function getUsername() {
-  // return the #username value
+  // return the #username value (do after createSignupForm)
 }
 
 function getHeader() {
@@ -107,6 +107,14 @@ function getHeader() {
 
 function getNavLinks() {
   // return the nav-links node
+}
+
+function getLoginLink() {
+  // return the login link node;
+}
+
+function getSignupLink() {
+  // return the signup link node;
 }
 
 function getLoggedInLinks() {
@@ -140,7 +148,7 @@ function createSignupForm(e) {
   // set the form div's inner HTML to a string html template that includes
   // - an h3 with Signup inside
   // - a empty div with the id of errors
-  // - a form with the id of login-form
+  // - a form with the id of signup-form
   // inside the form you need to include:
   // - a div with the class of input-field
   // inside the div with a class of input-field you will include:
