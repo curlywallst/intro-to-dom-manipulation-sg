@@ -14,17 +14,17 @@ class User {
 
 function countDownHeader1() {
   // change header to start from 3
-  // set timed out event to call countDownHeader2 after 1 second
+  // set timed out event to call countDownHeader2 after 1 second (note timeout uses milliseconds)
 }
 
 function countDownHeader2() {
   // change header to 2
-  // set timed out event to call countDownHeader3 after 1 second
+  // set timed out event to call countDownHeader3 after 1 second (note timeout uses milliseconds)
 }
 
 function countDownHeader3() {
   // change header to 1
-  // set timed out event to call countDownHeader4 after 1 second
+  // set timed out event to call countDownHeader4 after 1 second (note timeout uses milliseconds)
 }
 
 function countDownHeader4() {
