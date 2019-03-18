@@ -106,19 +106,23 @@ function getHeader() {
 }
 
 function getNavLinks() {
-  // return the nav-links node
+  // return the #nav-links node
 }
 
 function getLoginLink() {
-  // return the login link node;
+  // return the #login link node;
 }
 
 function getSignupLink() {
-  // return the signup link node;
+  // return the #signup link node;
 }
 
 function getLoggedInLinks() {
   // return a string html template of a li with an a tag inside where it's id is logout and it's text is logout
+}
+
+function getAnimalToggleLink() {
+  // return the #animal-toggle node;
 }
 
 function getLoggedOutLinks() {
