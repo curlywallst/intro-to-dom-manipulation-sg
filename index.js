@@ -13,150 +13,183 @@ class User {
 }
 
 function countDownHeader1() {
-  // change header to start from 3
-  // set timed out event to call countDownHeader2 after 1 second
+  let header = getHeader();
+  header.innerHTML = '3';
+  setTimeout(countDownHeader2, 1000);
 }
 
 function countDownHeader2() {
-  // change header to 2
-  // set timed out event to call countDownHeader3 after 1 second
+  let header = getHeader();
+  header.innerHTML = '2';
+  setTimeout(countDownHeader3, 1000);
 }
 
 function countDownHeader3() {
-  // change header to 1
-  // set timed out event to call countDownHeader4 after 1 second
+  let header = getHeader();
+  header.innerHTML = '1';
+  setTimeout(countDownHeader4, 1000);
 }
 
 function countDownHeader4() {
-  // change header to Welcome To Dom Manipulation
+  let header = getHeader();
+  header.innerHTML = 'Welcome To Dom Manipulation';
 }
 
 function clickToChangeImage(e) {
-  // grab the animal image as well as the link
-  // if the image src is the cat.jpg
-    // change the src to the puppy.jpeg
-    // the alt to A puppy picture
-    // change the link text to Click here to a cat picture instead
-  // otherwise
-    // change the src to cat.jpg
-    // the alt to A cat picture
-    // change the link text to Click here to a puppy picture instead
-
-  // Helpful Hint: Think about the default behavior of a link and what you might need to do to get this to work
+  e.preventDefault();
+  let image = document.querySelector('#animal-image');
+  let link = document.querySelector('#animal-toggle');
+  if (image.src == 'http://127.0.0.1:5500/cat.jpg') {
+    image.src = 'puppy.jpeg';
+    image.alt = 'A puppy picture';
+    link.innerHTML = 'Click here to a cat picture instead';
+  } else {
+    image.src = 'cat.jpg';
+    image.alt = 'A cat picture';
+    link.innerHTML = 'Click here to a puppy picture instead';
+  }
 }
 
 function logInUser(e) {
-  // get the username by using the helper function getUsername
-  // get the errorsDiv by using the helper function getErrorsDiv
-  // if there is not a username, display error in the errorsDiv that username must exist
-  // otherwise
-    // use the User.findByUsername(username) to grab the user
-    // if it exist, use the clearForm function to clear the form's html
-      // grab the header and change the header to Welcome, ${user.username}!
-      // change the navLinks to set them to getLoggedInLinks
-      // add a click event listener to your logout link to call the logoutUser function
-    // otherwise
-      // display error that user doesn't exist
-  
-  // Helpful Hint: Think about the default behavior of a form submit and what you might need to do to get this to work
+  e.preventDefault();
+  let username = getUsername();
+  let errorsDiv = getErrorsDiv();
+  errorsDiv.innerHTML = ''
+  errorsDiv.style.color = 'red';
+  if(username){
+    let user = User.findByUsername(username);
+    if(user) {
+      clearForm();
+      let header = getHeader();
+      let navLinks = getNavLinks();
+      navLinks.innerHTML = getLoggedInLinks();
+      header.innerHTML = `Welcome, ${user.username}!`
+      document.querySelector('#logout').addEventListener('click', logoutUser);
+    } else {
+      errorsDiv.innerHTML = 'user doesn\'t exist'
+    }
+  } else {
+    errorsDiv.innerHTML = 'username must exist'
+  }
 }
 
 function signUpUser(e) {
-  // get the username by using the helper function getUsername
-  // get the errorsDiv by using the helper function getErrorsDiv
-  // if there is not a username, display error in the errorsDiv that username must exist
-  // otherwise
-    // use the User.findByUsername(username) to grab the user
-    // if it exist, display an error that the user already exists
-    // otherwise
-      // create a user with the username
-      // grab the header and change the header to Welcome, ${user.username}!
-      // change the navLinks to set them to getLoggedInLinks
-      // add a click event listener to your logout link to call the logoutUser function
-
-  // Helpful Hint: Think about the default behavior of a form submit and what you might need to do to get this to work
+  e.preventDefault();
+  let username = getUsername();
+  let errorsDiv = getErrorsDiv();
+  errorsDiv.innerHTML = ''
+  errorsDiv.style.color = 'red';
+  if (username) {
+    let user = User.findByUsername(username);
+    if (user) {
+      errorsDiv.innerHTML = 'user already exist'
+    } else {
+      clearForm();
+      let navLinks = getNavLinks();
+      navLinks.innerHTML = getLoggedInLinks();
+      let user = new User(username);
+      let header = getHeader();
+      header.innerHTML = `Welcome, ${user.username}!`
+      document.querySelector('#logout').addEventListener('click', logoutUser);
+    }
+  } else {
+    errorsDiv.innerHTML = 'username must exist'
+  }
 }
 
 function logoutUser(e) {
-  // grab the header via get header and change it's inner html to Welcome To Dom Manipulation
-  // change the navLinks to getLoggedOutLinks
-  // make sure to set the eventListeners for your login and signup again so they create the login form as well as the signup form
-  
-  // Helpful Hint: Think about the default behavior of a link and what you might need to do to get this to work
+  e.preventDefault();
+  let header = getHeader();
+  let navLinks = getNavLinks();
+  header.innerHTML = 'Welcome To Dom Manipulation';
+  navLinks.innerHTML = getLoggedOutLinks();
+  document.querySelector('#login').addEventListener('click', createLoginForm);
+  document.querySelector('#signup').addEventListener('click', createSignupForm);
 }
 
 function clearForm() {
-  // grab the form div and clear out it's inner HTML
+  let formDiv = grabFormDiv();
+  formDiv.innerHTML = '';
 }
 
 function grabFormDiv() {
-  // return the #form-div node
+  return document.getElementById('form-div')
 }
 
 function getErrorsDiv() {
-  // return the #errors node
+  return document.getElementById('errors');
 }
 
 function getUsername() {
-  // return the #username value
+  return document.getElementById('username').value;
 }
 
 function getHeader() {
-  // return the #header node
+  return document.getElementById('header');
 }
 
 function getNavLinks() {
-  // return the nav-links node
+  return document.getElementById('nav-links');
 }
 
 function getLoggedInLinks() {
-  // return a string html template of a li with an a tag inside where it's id is logout and it's text is logout
+  return `
+    <li><a href="#" id="logout">Logout</a></li>
+  `
 }
 
 function getLoggedOutLinks() {
-  // return a string html template of 2 lis with anchor elements inside them for login and signup, make sure the id for the login is login and the id for the signup is signup
+  return `
+    <li><a href="#" id="login">Login</a></li>
+    <li><a href="#" id="signup">Signup</a></li>
+  `
 }
 
 function createLoginForm(e) {
-  // grab the form div via getFormDiv
-  // set the form div's inner HTML to a string html template that includes
-  // - an h3 with Login inside
-  // - a empty div with the id of errors
-  // - a form with the id of login-form
-  // inside the form you need to include:
-  // - a div with the class of input-field
-  // inside the div with a class of input-field you will include:
-  // - an input type of text id of username
-  // - (optional) a label with for="username" with the inner html of Username: 
-  // after the div with a class of input-field add a submit button with the class of btn and value of Login
-
-  // after the innerHTML has been set, grab the form that was just added and add an event listener of submit with a callback of logInUser
-  
-  // Helpful Hint: Think about the default behavior of a link and what you might need to do to get this to work
+  e.preventDefault();
+  let formDiv = document.getElementById('form-div');
+  formDiv.innerHTML = `
+    <h3>Login</h3>
+    <div id="errors"></div>
+    <form id="login-form">
+      <div class="input-field">
+        <input type="text" name="username" id="username">
+        <label for="username">Username: </label>
+      </div>
+      <input type="submit" value="Login" class="btn">
+    </form>
+  `
+  let form = document.getElementById('login-form');
+  form.addEventListener('submit', logInUser);
 }
 
 function createSignupForm(e) {
-  // grab the form div via getFormDiv
-  // set the form div's inner HTML to a string html template that includes
-  // - an h3 with Signup inside
-  // - a empty div with the id of errors
-  // - a form with the id of login-form
-  // inside the form you need to include:
-  // - a div with the class of input-field
-  // inside the div with a class of input-field you will include:
-  // - an input type of text id of username
-  // - (optional) a label with for="username" with the inner html of Username: 
-  // after the div with a class of input-field add a submit button with the class of btn and value of Signup
-
-  // after the innerHTML has been set, grab the form that was just added and add an event listener of submit with a callback of signUpUser
-
-  // Helpful Hint: Think about the default behavior of a link and what you might need to do to get this to work
+  e.preventDefault();
+  let formDiv = document.getElementById('form-div');
+  formDiv.innerHTML = `
+    <h3>Signup</h3>
+    <div id="errors"></div>
+    <form id="signup-form">
+      <div class="input-field">
+        <input type="text" name="username" id="username">
+        <label for="username">Username: </label>
+      </div>
+      <input type="submit" value="Signup" class="btn">
+    </form>
+  `
+  let form = document.getElementById('signup-form');
+  form.addEventListener('submit', signUpUser);
 }
 
 
 window.addEventListener('load', (e) => {
-  // start countdown header 1
-  // add click event listener to #animal-toggle with callback clickToChangeImage
-  // add click event listener to #login with callback createLoginForm
-  // add click event listener to #signup with callback createSignupForm
+  // start countdown header
+  countDownHeader1();
+
+  // change animal link
+  document.querySelector('#animal-toggle').addEventListener('click', clickToChangeImage);
+
+  // login / signup
+  document.querySelector('#login').addEventListener('click', createLoginForm);
+  document.querySelector('#signup').addEventListener('click', createSignupForm);
 })
