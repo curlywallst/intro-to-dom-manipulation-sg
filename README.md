@@ -90,4 +90,4 @@ My advice, when you are working on building a javascript feature. Start from the
 - What makes this happen? (event listener)
 - When this starts happening, what will i need? (nodes, etc... inside the event listener)
 - What needs to change or what do I do with these nodes that i have grabbed?
-- How can i make the html reflect this state?
+- How can i make the html reflect this state?# intro-to-dom-manipulation-sg-nancy
