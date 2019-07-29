@@ -13,21 +13,32 @@ class User {
 }
 
 function countDownHeader1() {
+  let header = getHeader()
+  header.innerHTML = "3"
+  setTimeout(countDownHeader2, 1000)
   // change header to start from 3
   // set timed out event to call countDownHeader2 after 1 second (note timeout uses milliseconds)
 }
 
 function countDownHeader2() {
+  let header = getHeader()
+  header.innerHTML = "2"
+  setTimeout(countDownHeader3, 1000)
   // change header to 2
   // set timed out event to call countDownHeader3 after 1 second (note timeout uses milliseconds)
 }
 
 function countDownHeader3() {
+  let header = getHeader()
+  header.innerHTML = "1"
+  setTimeout(countDownHeader4, 1000)
   // change header to 1
   // set timed out event to call countDownHeader4 after 1 second (note timeout uses milliseconds)
 }
 
 function countDownHeader4() {
+  let header = getHeader()
+  header.innerHTML = "Welcome To Dom Manipulation"
   // change header to Welcome To Dom Manipulation
 }
 
@@ -43,6 +54,18 @@ function clickToChangeImage(e) {
     // change the link text to Click here to a puppy picture instead
 
   // Helpful Hint: Think about the default behavior of a link and what you might need to do to get this to work
+  e.preventDefault()
+  let image = document.getElementById("animal-image")
+  let link =  getAnimalToggleLink()
+  if (image.src.includes("cat")) {
+    image.src = "puppy.jpeg"
+    image.alt = "A puppy picture"
+    link.innerHTML = "Click here to a cat picture instead"
+  } else {
+    image.src = "cat.jpg"
+    image.alt = "A cat picture"
+    link.innerHTML = "Click here to a puppy picture instead"
+  }
 }
 
 function logInUser(e) {
@@ -62,6 +85,7 @@ function logInUser(e) {
 }
 
 function signUpUser(e) {
+  e.preventDefault()
   // get the username by using the helper function getUsername
   // get the errorsDiv by using the helper function getErrorsDiv
   // if there is not a username, display error in the errorsDiv that username must exist
@@ -91,30 +115,37 @@ function clearForm() {
 
 function getFormDiv() {
   // return the #form-div node
+  return document.getElementById("form-div")
 }
 
 function getErrorsDiv() {
   // return the #errors node (do after createSignupForm)
+  return document.getElementById("errors")
 }
 
 function getUsername() {
   // return the #username value (do after createSignupForm)
+  return document.getElementById("username")
 }
 
 function getHeader() {
   // return the #header node
+  return document.getElementById("header")
 }
 
 function getNavLinks() {
   // return the #nav-links node
+  return document.getElementById("nav-links")
 }
 
 function getLoginLink() {
   // return the #login link node;
+  return document.getElementById("login")
 }
 
 function getSignupLink() {
   // return the #signup link node;
+  return document.getElementById("signup")
 }
 
 function getLoggedInLinks() {
@@ -123,6 +154,7 @@ function getLoggedInLinks() {
 
 function getAnimalToggleLink() {
   // return the #animal-toggle node;
+  return document.getElementById("animal-toggle")
 }
 
 function getLoggedOutLinks() {
@@ -163,6 +195,22 @@ function createSignupForm(e) {
   // after the innerHTML has been set, grab the form that was just added and add an event listener of submit with a callback of signUpUser
 
   // Helpful Hint: Think about the default behavior of a link and what you might need to do to get this to work
+  e.preventDefault()
+  let formDiv = getFormDiv()
+  formDiv.innerHTML = `
+    <h3>Sign up</h3>  
+    <div id="errors"></div>
+    <form id="signup-form">
+      <div class ="input-field">
+        <input type="text" id="username">
+      </div>
+      <input type="submit" value="Sign up" class="btn">
+    </form>
+  `
+  let form = document.getElementById('signup-form')
+  form.addEventListener('submit', signUpUser)
+
+
 }
 
 
@@ -171,4 +219,7 @@ window.addEventListener('load', (e) => {
   // add click event listener to #animal-toggle with callback clickToChangeImage
   // add click event listener to #login with callback createLoginForm
   // add click event listener to #signup with callback createSignupForm
+  countDownHeader1()
+  getAnimalToggleLink().addEventListener('click', clickToChangeImage)
+  getSignupLink().addEventListener('click', createSignupForm)
 })
